@@ -3,15 +3,16 @@
 #define  UINT_iMAX 10000 
 using namespace std;
  
-typedef struct {
+typedef struct
+{
 	char letter, *code;
 	int weight;
 	int parent, lchild, rchild;
-}HTNode, *HuffmanTree;
- 
+}
+HTNode, *HuffmanTree;
 int n;
 char coding[100];
- 
+
 int Min(HuffmanTree &HT,int i)  
 {  
     //在HT[1...i]中选择parent为0且权值最小的结点  
@@ -57,7 +58,6 @@ void CreateHuffmanTree(HuffmanTree &HT, char t[], int w[])
 		HT[i].rchild=0;
 		HT[i].letter=t[i];
 		HT[i].weight=w[i]; 
-	
 	}
 	for(i=n; i<=m; i++)
 	{
@@ -72,14 +72,11 @@ void CreateHuffmanTree(HuffmanTree &HT, char t[], int w[])
 	for(i=n; i<m; i++)
 	{
 	Select(HT, i-1,s1, s2);//在n个数中找出权值最小的两个
-	
 	HT[s1].parent=i;
 	HT[s2].parent=i;//将他们两个的parent节点设置为i;
-	
 	HT[i].lchild=s1;
 	HT[i].rchild=s2;//把这两个分别当作左右节点
 	HT[i].weight=HT[s1].weight+HT[s2].weight;//他们两个的双亲为他们两个的和；
-	
 	}
 }
 void CreatHuffmanCode(HuffmanTree HT)
@@ -94,25 +91,24 @@ void CreatHuffmanCode(HuffmanTree HT)
 	cout<<"字符编码为："<<endl;
 	for(i=0; i<n; i++)
 	{
-	
 	start=n-1;
 	c=i;
 	f=HT[i].parent;
-	
-		while(f!=0){
+		while(f!=0)
+		{
 			--start;
-			if(HT[f].lchild==c){
-			
+			if(HT[f].lchild==c)
+			{
 				cd[start]='0';
 			}
-			else{
+			else
+			{
 			 
 				cd[start]='1';
 			}
 			c=f;
 			f=HT[f].parent;
 		}
-	
 	HT[i].code=new char[n-start];
 	strcpy(HT[i].code,&cd[start]);
 	cout<<HT[i].letter<<":"<<HT[i].code<<endl;
@@ -155,7 +151,6 @@ int main()
 	 {
 	  cout<<"字符："<<a[i]<<"  权值："<<b[i]<<endl;
 	 }
- 
     CreateHuffmanTree(HT, a, b);
     CreatHuffmanCode(HT);
    return 0;
